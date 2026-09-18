@@ -1,8 +1,8 @@
-const WORKER = "https://swift-craft-launcher-download.suhang12332.workers.dev";
+const WORKER = "https://swift-craft-launcher-update.suhang12332.workers.dev";
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  const path = url.pathname.replace("/api/download", "");
+  const path = url.pathname.replace("/api/update", "");
 
   const targetUrl = new URL(WORKER + path);
   targetUrl.search = url.search;
