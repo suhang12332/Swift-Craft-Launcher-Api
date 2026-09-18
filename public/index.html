@@ -4,73 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swift Craft Launcher API</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .status {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 136, 0.2);
-            border: 1px solid #00ff88;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-        .endpoints {
-            text-align: left;
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .endpoints h3 {
-            margin-bottom: 1rem;
-            color: #00d9ff;
-        }
-        .endpoint {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-family: monospace;
-            font-size: 0.85rem;
-        }
-        .endpoint:last-child { border-bottom: none; }
-        .method {
-            color: #00ff88;
-            margin-right: 0.5rem;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Swift Craft Launcher</h1>
-        <div class="status">API Proxy Active</div>
-        <div class="endpoints">
-            <h3>Endpoints</h3>
-            <div class="endpoint"><span class="method">GET</span>/api/contributors</div>
-            <div class="endpoint"><span class="method">GET</span>/api/update/appcast-arm64.xml</div>
-            <div class="endpoint"><span class="method">GET</span>/api/update/appcast-x86_64.xml</div>
-            <div class="endpoint"><span class="method">GET</span>/api/download/{version}/{file}.dmg</div>
-        </div>
-    </div>
+    <h1>Swift Craft Launcher API</h1>
+    
+    <h2>Endpoints</h2>
+    <ul>
+        <li><a href="/api/contributors">/api/contributors</a></li>
+        <li><a href="/api/update/appcast-arm64.xml">/api/update/appcast-arm64.xml</a></li>
+        <li><a href="/api/update/appcast-x86_64.xml">/api/update/appcast-x86_64.xml</a></li>
+        <li>/api/download/{version}/{file}.dmg</li>
+    </ul>
 </body>
 </html>
