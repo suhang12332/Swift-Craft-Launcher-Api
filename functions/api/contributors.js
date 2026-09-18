@@ -1,22 +1,25 @@
-const WORKER = "https://swift-craft-launcher-contributors.suhang12332.workers.dev";
-
 export async function onRequest(context) {
-  const url = new URL(context.request.url);
-  const path = url.pathname.replace("/api/contributors", "");
+  const token = context.env.GITHUB_TOKEN;
 
-  const targetUrl = new URL(WORKER + path);
-  targetUrl.search = url.search;
+  const headers = {
+    "User-Agent": "SwiftCraftLauncher"
+  };
 
-  const response = await fetch(targetUrl.toString(), {
-    method: context.request.method,
-    headers: context.request.headers
-  });
+  if (token) {
+    headers["Authorization"] = `token ${token}`;
+  }
 
-  const headers = new Headers(response.headers);
-  headers.set("Access-Control-Allow-Origin", "*");
+  const response = await fetch(
+    "https://api.github.com/repos/suhang12332/Swift-Craft-Launcher/contributors",
+    { headers }
+  );
 
   return new Response(response.body, {
     status: response.status,
-    headers
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600",
+      "Access-Control-Allow-Origin": "*"
+    }
   });
 }
