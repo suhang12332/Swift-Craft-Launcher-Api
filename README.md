@@ -1,43 +1,30 @@
 # Swift Craft Launcher API
 
-Cloudflare Pages 反向代理，用于在国内访问 Swift Craft Launcher 的 Workers 服务。
+A reverse-proxy API that provides reliable access to Swift Craft Launcher services.
 
-## 项目结构
+## Project Structure
 
 ```
 ├── public/
-│   └── index.html
+│   └── _routes.json
 ├── functions/
 │   └── api/
 │       ├── contributors.js
-│       ├── update.js
-│       └── download.js
+│       ├── update/
+│       │   └── [slug].js
+│       └── download/
+│           └── [version]/
+│               └── [file].js
 └── package.json
 ```
 
-## 路由
+## Routes
 
-| Pages 路径 | Worker |
+| API Path | Description |
 |---|---|
-| `/api/contributors` | `swift-craft-launcher-contributors.workers.dev` |
-| `/api/update/*` | `swift-craft-launcher-update.workers.dev` |
-| `/api/download/*` | `swift-craft-launcher-download.workers.dev` |
+| `/api/contributors` | Returns the project's contributor list |
+| `/api/update/*` | Serves app update manifests and metadata |
+| `/api/download/*` | Proxies release downloads (e.g. `/api/download/{version}/{file}.dmg`) |
 
-## 部署
-
-```bash
-# 安装 wrangler
-npm install -g wrangler
-
-# 登录 Cloudflare
-wrangler login
-
-# 部署到 Pages
-wrangler pages deploy public
-```
-
-## 本地开发
-
-```bash
-npm run dev
-```
+All responses include the `Access-Control-Allow-Origin: *` header so the API
+can be used from the launcher and other clients.

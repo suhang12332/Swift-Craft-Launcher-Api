@@ -2,7 +2,7 @@ export async function onRequest(context) {
   const token = context.env.GITHUB_TOKEN;
 
   const headers = {
-    "User-Agent": "SwiftCraftLauncher"
+    "User-Agent": "SwiftCraftLauncher-API/1.0"
   };
 
   if (token) {
