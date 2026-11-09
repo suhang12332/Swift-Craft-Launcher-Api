@@ -27,9 +27,8 @@ export async function onRequest(context) {
 
   const upstream = await fetch(GITHUB_BASE + name, {
     method: request.method,
-    redirect: "follow", // 跟随 GitHub 的 302
+    redirect: "follow",
     headers: {
-      // GitHub 对没有 UA 的请求可能 403,带上一个
       "User-Agent": "Swift-Craft-Launcher-Updater",
       Accept: request.headers.get("Accept") || "*/*",
     },

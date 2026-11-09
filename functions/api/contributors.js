@@ -1,5 +1,6 @@
 export async function onRequest(context) {
-  // CORS 预检直接本地响应
+  const url = new URL(context.request.url);
+
   if (context.request.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
@@ -9,6 +10,13 @@ export async function onRequest(context) {
         "Access-Control-Allow-Headers": "*",
         "Access-Control-Max-Age": "86400",
       },
+    });
+  }
+
+  if (url.search) {
+    return new Response("Not Found", {
+      status: 404,
+      headers: { "Access-Control-Allow-Origin": "*" },
     });
   }
 
