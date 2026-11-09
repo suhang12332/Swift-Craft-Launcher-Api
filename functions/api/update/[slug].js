@@ -1,22 +1,45 @@
-const WORKER = "https://swift-craft-launcher-update.suhang12332.workers.dev";
+// functions/api/update/[[path]].js
+const GITHUB_BASE =
+  "https://github.com/suhang12332/Swift-Craft-Launcher/releases/latest/download/";
+
+const ALLOWED = new Set(["appcast-arm64.xml", "appcast-x86_64.xml"]);
 
 export async function onRequest(context) {
-  const url = new URL(context.request.url);
-  const path = url.pathname.replace("/api/update", "");
+  const { request } = context;
+  const url = new URL(request.url);
 
-  const targetUrl = new URL(WORKER + path);
-  targetUrl.search = url.search;
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
+  }
 
-  const response = await fetch(targetUrl.toString(), {
-    method: context.request.method,
-    headers: context.request.headers
+  const name = url.pathname.split("/").pop();
+  if (!ALLOWED.has(name)) {
+    return new Response("Not Found", { status: 404 });
+  }
+
+  const upstream = await fetch(GITHUB_BASE + name, {
+    method: request.method,
+    redirect: "follow", // 跟随 GitHub 的 302
+    headers: {
+      // GitHub 对没有 UA 的请求可能 403,带上一个
+      "User-Agent": "Swift-Craft-Launcher-Updater",
+      Accept: request.headers.get("Accept") || "*/*",
+    },
   });
 
-  const headers = new Headers(response.headers);
+  const headers = new Headers(upstream.headers);
   headers.set("Access-Control-Allow-Origin", "*");
 
-  return new Response(response.body, {
-    status: response.status,
-    headers
+  return new Response(upstream.body, {
+    status: upstream.status,
+    headers,
   });
 }
