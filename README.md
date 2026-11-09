@@ -10,6 +10,8 @@ A reverse-proxy API that provides reliable access to Swift Craft Launcher servic
 ├── functions/
 │   └── api/
 │       ├── contributors.js
+│       ├── assets/
+│       │   └── [[path]].js
 │       ├── update/
 │       │   └── [slug].js
 │       └── download/
@@ -25,6 +27,7 @@ A reverse-proxy API that provides reliable access to Swift Craft Launcher servic
 | `/api/contributors` | Returns the project's contributor list |
 | `/api/update/*` | Serves app update manifests and metadata |
 | `/api/download/*` | Proxies release downloads (e.g. `/api/download/{version}/{file}.dmg`) |
+| `/api/assets/*` | Proxies raw repository assets from `raw.githubusercontent.com` (e.g. `/api/assets/SwiftCraftLauncher/Assets.xcassets/AppIcon.appiconset/mac32pt1x.png`) |
 
 All responses include the `Access-Control-Allow-Origin: *` header so the API
 can be used from the launcher and other clients.
